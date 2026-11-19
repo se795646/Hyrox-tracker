@@ -1,0 +1,10 @@
+{
+  "name": "Hyrox Live Tracker",
+  "short_name": "HyroxTimer",
+  "description": "專為運動當下設計的 Hyrox 防休眠分段計時與紀錄工具",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "orientation": "portrait"
+}
