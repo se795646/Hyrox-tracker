@@ -1,5 +1,60 @@
-# Vue 3 + TypeScript + Vite
+# Hyrox Live Tracker
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+專為**手機運動當下紀錄**設計的 Hyrox 訓練與模擬賽分段計時 Web App (PWA)。  
+無需安裝原生 App，透過時間戳防漂移計時、螢幕防休眠與本地即時存檔，協助單人選手或混雙搭檔在健身房、操場或模擬賽中精準掌握每一輪配速與站點表現。
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+---
+
+## ✨ 核心功能
+
+- **多元訓練模式**
+  - **全程挑戰 (Full)**：標準 8 × 1km 跑步 + 8 個功能性站點。
+  - **半程模擬 (Half)**：4 × 1km 跑步 + 前 4 個站點。
+  - **自訂課表 (Custom)**：自由調整每輪跑步距離（`0m / 400m / 800m / 1km`）、重複輪數（`1~4 輪`）與勾選站點，內建「全選 8 站」、「戶外操場」、「純間歇跑」快速預設。
+- **單人 / 雙人混雙切換**
+  - 自動帶入官方組別負重規格（Standard / Pro / Mixed Doubles，含混雙藥球男 3.0m / 女 2.7m 標靶說明）。
+  - **混雙專屬換手計時**：進入站點後可隨時點擊「換手輪替」，紀錄每位隊友的上場棒次與累計耗時。
+  - 可選擇是否獨立紀錄轉換區（Roxzone）進出站時間。
+- **運動現場防呆設計**
+  - **時間戳防漂移計時**：以 `Date.now()` 差值計算經過時間，切換分頁或系統省電不影響秒數準確度。
+  - **螢幕防休眠 (Screen Wake Lock API)**：計時期間防止手機自動鎖屏，切回前景時自動重新申請。
+  - **即時本地存檔**：每次換站或換手立即寫入瀏覽器 `localStorage`，意外重新整理可無縫恢復進行中的訓練。
+  - **高對比單屏大按鈕 & 音效提示**：流汗盲按設計，並於點擊開始時解鎖 Web Audio API 提示音（相容 iOS Safari）。
+- **完賽賽場計時牆 & 報表匯出**
+  - **跑步配速走勢圖**：視覺化各趟跑步時間，自動標示最快一趟與前後半程配速差。
+  - **各輪配對明細**：將每輪「跑步 + 關卡」配對呈現，一目了然體能衰退點。
+  - **多格式匯出**：支援一鍵下載高解析度 **PNG 成績單圖片**、**Excel 相容 CSV 試算表 (UTF-8 BOM)** 與 **JSON 原始紀錄**。
+- **自動多語系**：預設讀取瀏覽器語言，支援**繁體中文 / English** 一鍵切換。
+
+---
+
+## 🛠 技術棧
+
+- **前端框架**：Vue 3 (`<script setup lang="ts">`)
+- **建置工具**：Vite + TypeScript (Strict Mode)
+- **原生瀏覽器 API**：Screen Wake Lock API、Web Audio API、Canvas 2D、localStorage、PWA Web App Manifest
+
+---
+
+## 🚀 本機開發與建置
+
+```bash
+# 1. 安裝相依套件
+npm install
+
+# 2. 啟動開發伺服器
+npm run dev
+
+# 3. 型別檢查與建置正式版
+npm run build
+
+# 4. 預覽正式建置結果
+npm run preview
+```
+
+---
+
+## 📱 使用提醒
+
+1. **螢幕防休眠 (Wake Lock API)** 在行動裝置上需於 **HTTPS**（或 `localhost`）環境且為前景視窗才能生效。
+2. 訓練紀錄目前儲存於該裝置瀏覽器的 **`localStorage`**，不同裝置或不同瀏覽器之間不會自動同步；建議完賽後使用「下載 PNG 成績卡」或「匯出 CSV」保存紀錄。
